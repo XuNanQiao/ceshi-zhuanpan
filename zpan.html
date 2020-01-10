@@ -1,0 +1,127 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>无标题文档</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  #dp-box {
+    width: 531px;
+    height: 531px;
+    margin: 0 auto;
+    background: url(turntable-bg2.png) center no-repeat;
+    position: relative;
+  }
+
+  #zp-box {
+    width: 448px;
+    height: 448px;
+    float: left;
+    margin: 37px 40px;
+    -moz-transition: all 6s ease-in-out;
+    -o-transition: all 6s ease-in-out;
+    transition: all 6s ease-in-out;
+    -webkit-transition: all 6s ease-in-out;
+  }
+
+  #zj-box {
+    width: 174px;
+    height: 228px;
+    position: absolute;
+    left: 170.5px;
+    top: 151.5px;
+    z-index: 1;
+  }
+</style>
+<script src="ajax.js"></script>
+<script>
+  window.onload = function () {
+    var oZpbox = document.getElementById('zp-box');
+    var oZjbox = document.getElementById('zj-box');
+    var timer = null;
+    var json = [{
+      'chi': 0,
+      'zj': '差一点没中哦，加油再来一次'
+    }, {
+      'chi': 1,
+      'zj': '恭喜你中奖了一等奖'
+    }, {
+      'chi': 2,
+      'zj': '恭喜你中奖了二等奖'
+    }, {
+      'chi': 3,
+      'zj': '恭喜你中奖了三等奖'
+    }, {
+      'chi': 4,
+      'zj': '恭喜你中奖了四等奖'
+    }, {
+      'chi': 5,
+      'zj': '恭喜你中奖了五等奖'
+    }, {
+      'chi': 6,
+      'zj': '恭喜你中奖了六等奖'
+    }];
+    var arr = eval(json);
+    var a = 1;
+    var zp = function () {
+      clearInterval(timer);
+      var len = arr.length;
+      var n = Math.floor(Math.random() * arr.length - 1) + 1;
+      var d = 0;
+      var Deg = 0;
+      switch (n) {
+        case 0:
+          d = 331;
+          break;
+        case 1:
+          d = 25;
+          break;
+        case 2:
+          d = 76;
+          break;
+        case 3:
+          d = 127;
+          break;
+        case 4:
+          d = 178;
+          break;
+        case 5:
+          d = 229;
+          break;
+        case 6:
+          d = 280;
+          break;
+      };
+      Deg = 'rotate' + '(' + ((3600 * a) + d) + 'deg' + ')';
+      oZpbox.style.webkitTransform = Deg;
+      oZpbox.style.MozTransform = Deg;
+      oZpbox.style.msTransform = Deg;
+      oZjbox.removeEventListener("click", zp, false);
+      timer = setInterval(function () {
+        alert(arr[n].zj);
+        clearInterval(timer);
+        return oZjbox.addEventListener("click", zp, false);
+      }, 6100);
+      a++;
+    }
+    oZjbox.addEventListener("click", zp, false);
+  };
+</script>
+
+<body>
+  <div id="dp-box">
+    <div id="zp-box">
+      <img src="logo.png">
+    </div>
+    <div id="zj-box"><img src="captcha.jpg"></div>
+  </div>
+</body>
+
+</html>
